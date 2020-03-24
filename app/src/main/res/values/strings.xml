@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SimpleWidgetForecast</string>
+    <string name="openWeatherMap_api">f0d74b68a46278cece7489b2e76664f7</string>
+    <string name="today">Today</string>
+    <string name="week">Week</string>
+    <string name="settings">Settings</string>
+</resources>
