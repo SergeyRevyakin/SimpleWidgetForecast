@@ -16,7 +16,7 @@ class WeatherNetworkDataSourceImpl(
     override suspend fun fetchCurrentWeather(latitude: Double, longitude: Double) {
         try {
             val fetchedCurrentWeather = openWeatherMapApiService
-                .getCurrentWeather(latitude,longitude)
+                .getCurrentWeatherAsync(latitude,longitude)
                 .await()
 
             _downloadedCurrentWeather.postValue(fetchedCurrentWeather)

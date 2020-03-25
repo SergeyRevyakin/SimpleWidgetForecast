@@ -21,7 +21,7 @@ interface OpenWeatherMapApiService {
 //        @Query("units") units: String = "metric"
 //    )
     @GET("weather")
-    fun getCurrentWeather(
+    fun getCurrentWeatherAsync(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
         @Query("APPID") appid: String = API_KEY,
@@ -42,7 +42,7 @@ interface OpenWeatherMapApiService {
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
         ): OpenWeatherMapApiService {
-            val requestIntercepter = Interceptor { chain ->
+            val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
                     .url
                     .newBuilder()
@@ -61,7 +61,7 @@ interface OpenWeatherMapApiService {
             }
 
             val okHttpClient = OkHttpClient.Builder()
-                //.addInterceptor(requestIntercepter)
+                //.addInterceptor(requestInterceptor)
                 .addInterceptor(connectivityInterceptor)
                 .build()
             return Retrofit.Builder()
