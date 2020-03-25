@@ -1,26 +1,40 @@
 package com.serg.simplewidgetforecast.data.DB
 
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+
+const val KEY = 0
 
 @Entity(tableName = "current_weather")
 data class CurrentWeatherDB(
     val base: String,
+    @Embedded(prefix = "clouds_")
     val clouds: Clouds,
     val cod: Int,
+    @Embedded(prefix = "coord_")
     val coord: Coord,
     val dt: Int,
     val id: Int,
+    @Embedded(prefix = "main_")
     val main: Main,
     val name: String,
+    @Embedded(prefix = "rain_")
     val rain: Rain?,
+    @Embedded(prefix = "snow")
     val snow: Snow?,
+    @Embedded(prefix = "sys_")
     val sys: Sys,
     val timezone: Int,
     val visibility: Int,
     val weather: List<Weather>,
+    @Embedded(prefix = "wind_")
     val wind: Wind
 ) {
+    @PrimaryKey(autoGenerate = false)
+    var _id = KEY
+}
     data class Clouds(
         val all: Int
     )
@@ -76,4 +90,4 @@ data class CurrentWeatherDB(
         val deg: Int,
         val speed: Double
     )
-}
+

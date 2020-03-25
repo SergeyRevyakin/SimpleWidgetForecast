@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.serg.simplewidgetforecast.data.OpenWeatherMapApiService
+import androidx.lifecycle.Observer
+import com.serg.simplewidgetforecast.data.network.ConnectivityInterceptorImpl
+import com.serg.simplewidgetforecast.data.network.OpenWeatherMapApiService
+import com.serg.simplewidgetforecast.data.network.WeatherNetworkDataSourceImpl
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -34,10 +37,17 @@ class CurrentWeatherFragment : Fragment() {
         // TODO: Use the ViewModel
         testTextView.textSize = 30f
         testTextView.text = "TEST"
-        val apiService = OpenWeatherMapApiService()
+
+        val apiService =
+            OpenWeatherMapApiService(ConnectivityInterceptorImpl(this.context!!))
+        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+
+        weatherNetworkDataSource.downloadedCurrentWeather.observe(viewLifecycleOwner, Observer {
+            testTextView.text = it.name
+        })
+
         GlobalScope.launch(Dispatchers.Main) {
-            val currentWeatherResponse = apiService.getCurrentWeather(10.0, 20.0).await()
-            testTextView.text = currentWeatherResponse.name
+            weatherNetworkDataSource.fetchCurrentWeather(10.0, 20.0)
         }
     }
 

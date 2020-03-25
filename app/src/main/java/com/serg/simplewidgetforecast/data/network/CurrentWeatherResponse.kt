@@ -1,4 +1,4 @@
-package com.serg.simplewidgetforecast.data
+package com.serg.simplewidgetforecast.data.network
 
 
 import com.google.gson.annotations.SerializedName
@@ -19,8 +19,7 @@ data class CurrentWeatherResponse(
     val visibility: Int,
     val weather: List<Weather>,
     val wind: Wind
-)
-{
+) {
     data class Clouds(
         val all: Int
     )

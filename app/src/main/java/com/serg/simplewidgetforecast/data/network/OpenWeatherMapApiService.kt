@@ -1,8 +1,6 @@
-package com.serg.simplewidgetforecast.data
+package com.serg.simplewidgetforecast.data.network
 
-import android.content.res.Resources
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.serg.simplewidgetforecast.R
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -41,12 +39,17 @@ interface OpenWeatherMapApiService {
     ): Deferred<CurrentWeatherResponse>
 
     companion object {
-        operator fun invoke(): OpenWeatherMapApiService {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): OpenWeatherMapApiService {
             val requestIntercepter = Interceptor { chain ->
                 val url = chain.request()
                     .url
                     .newBuilder()
-                    .addQueryParameter("APPID", API_KEY)
+                    .addQueryParameter(
+                        "APPID",
+                        API_KEY
+                    )
                     .build()
 
                 val request = chain.request()
@@ -59,6 +62,7 @@ interface OpenWeatherMapApiService {
 
             val okHttpClient = OkHttpClient.Builder()
                 //.addInterceptor(requestIntercepter)
+                .addInterceptor(connectivityInterceptor)
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
