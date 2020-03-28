@@ -10,10 +10,10 @@ import androidx.room.Query
 interface CurrentWeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(weatherEntry: CurrentWeatherEntry) {
+    fun upsert(weatherEntry: CurrentWeatherResponse) {
 
     }
 
-    @Query(value = "select * from current_weather where _id = $KEY")
-    fun getWeather(): LiveData<CurrentWeatherEntry>
+    @Query(value = "select * from current_weather where id = $KEY")
+    fun getWeather(): LiveData<CurrentWeatherResponse>
 }

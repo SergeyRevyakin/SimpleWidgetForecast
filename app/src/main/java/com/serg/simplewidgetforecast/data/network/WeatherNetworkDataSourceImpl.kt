@@ -3,6 +3,7 @@ package com.serg.simplewidgetforecast.data.network
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.serg.simplewidgetforecast.data.DB.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.internal.NoConnectivityException
 
 class WeatherNetworkDataSourceImpl(

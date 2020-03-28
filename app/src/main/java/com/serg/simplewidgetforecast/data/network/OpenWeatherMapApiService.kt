@@ -1,6 +1,7 @@
 package com.serg.simplewidgetforecast.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.serg.simplewidgetforecast.data.DB.CurrentWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -29,14 +30,14 @@ interface OpenWeatherMapApiService {
         @Query("units") units: String = "metric"
     ): Deferred<CurrentWeatherResponse>
 
-    @GET("forecast")
-    fun getWeatherForecast(
-        @Query("lat") latitude: Double,
-        @Query("lon") longitude: Double,
-        @Query("APPID") appid: String = API_KEY,
-        @Query("lang") language: String = "ru",
-        @Query("units") units: String = "metric"
-    ): Deferred<CurrentWeatherResponse>
+//    @GET("forecast")
+//    fun getWeatherForecast(
+//        @Query("lat") latitude: Double,
+//        @Query("lon") longitude: Double,
+//        @Query("APPID") appid: String = API_KEY,
+//        @Query("lang") language: String = "ru",
+//        @Query("units") units: String = "metric"
+//    ): Deferred<CurrentWeatherResponse>
 
     companion object {
         operator fun invoke(
