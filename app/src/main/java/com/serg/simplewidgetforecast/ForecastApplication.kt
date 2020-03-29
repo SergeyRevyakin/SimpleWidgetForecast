@@ -2,7 +2,7 @@ package com.serg.simplewidgetforecast
 
 import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.serg.simplewidgetforecast.data.DB.ForecastDatabase
+import com.serg.simplewidgetforecast.data.db.ForecastDatabase
 import com.serg.simplewidgetforecast.data.network.*
 import com.serg.simplewidgetforecast.data.repository.ForecastRepository
 import com.serg.simplewidgetforecast.data.repository.ForecastRepositoryImpl
@@ -20,14 +20,32 @@ class ForecastApplication : Application(), KodeinAware {
         import(androidXModule(this@ForecastApplication))
 
         bind() from singleton {
-            ForecastDatabase(instance()) }
+            ForecastDatabase(instance())
+        }
+
         bind() from singleton {
-            instance<ForecastDatabase>().currentWeatherDao() }
-        bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
-        bind() from singleton { OpenWeatherMapApiService(instance()) }
-        bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
-        bind<ForecastRepository>() with singleton { ForecastRepositoryImpl(instance(), instance()) }
-        bind() from provider { CurrentWeatherViewModelFactory(instance()) }
+            instance<ForecastDatabase>().currentWeatherDao()
+        }
+
+        bind<ConnectivityInterceptor>() with singleton {
+            ConnectivityInterceptorImpl(instance())
+        }
+
+        bind() from singleton {
+            OpenWeatherMapApiService(instance())
+        }
+
+        bind<WeatherNetworkDataSource>() with singleton {
+            WeatherNetworkDataSourceImpl(instance())
+        }
+
+        bind<ForecastRepository>() with singleton {
+            ForecastRepositoryImpl(instance(), instance())
+        }
+
+        bind() from provider {
+            CurrentWeatherViewModelFactory(instance())
+        }
     }
 
     override fun onCreate() {

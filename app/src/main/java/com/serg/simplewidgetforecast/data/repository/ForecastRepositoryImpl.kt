@@ -1,8 +1,9 @@
 package com.serg.simplewidgetforecast.data.repository
 
 import androidx.lifecycle.LiveData
-import com.serg.simplewidgetforecast.data.DB.CurrentWeatherResponse
-import com.serg.simplewidgetforecast.data.DB.CurrentWeatherDao
+import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
+import com.serg.simplewidgetforecast.data.db.CurrentWeatherDao
+import com.serg.simplewidgetforecast.data.db.unitlocalized.UnitSpecificCurrentWeatherEntry
 import com.serg.simplewidgetforecast.data.network.WeatherNetworkDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -20,16 +21,17 @@ class ForecastRepositoryImpl(
         }
     }
 
-    override suspend fun getCurrentWeather(): LiveData<CurrentWeatherResponse> {
+    override suspend fun getCurrentWeather(isMetric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
         initWeatherData()
         return withContext(Dispatchers.IO) {
-            return@withContext currentWeatherDao.getWeather()
+            return@withContext if (isMetric) currentWeatherDao.getWeatherMetric()
+            else currentWeatherDao.getWeatherImperial()
         }
     }
 
     private fun persistFetchedCurrentWeather(fetchedWeather: CurrentWeatherResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentWeatherDao.upsert(fetchedWeather)
+            currentWeatherDao.upsert(fetchedWeather.currentWeatherEntry)
         }
     }
 

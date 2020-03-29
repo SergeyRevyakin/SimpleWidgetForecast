@@ -1,7 +1,7 @@
 package com.serg.simplewidgetforecast.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.serg.simplewidgetforecast.data.DB.CurrentWeatherResponse
+import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

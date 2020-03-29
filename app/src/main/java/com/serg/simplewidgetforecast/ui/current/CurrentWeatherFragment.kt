@@ -1,13 +1,13 @@
-package com.serg.simplewidgetforecast
+package com.serg.simplewidgetforecast.ui.current
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.serg.simplewidgetforecast.R
 import com.serg.simplewidgetforecast.ui.base.ScopeFragment
-import com.serg.simplewidgetforecast.ui.current.CurrentWeatherViewModelFactory
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -32,8 +32,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders
-            .of(this, viewModelFactory)
+        viewModel = ViewModelProvider(this, viewModelFactory)  //redone
             .get(CurrentWeatherViewModel::class.java)
 
         bindUI()
@@ -57,8 +56,8 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
     private fun bindUI() = launch {
         val currentWeather = viewModel.weather.await()
         currentWeather.observe(viewLifecycleOwner, Observer {
-            if (it==null) return@Observer
-            testTextView.text = it.currentWeatherEntry.feelsLike.toString().plus("!!!")
+            //if (it == null) return@Observer
+            testTextView.text = it?.feelsLike.toString().plus("!!!")
         })
     }
 

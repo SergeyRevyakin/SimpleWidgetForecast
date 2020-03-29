@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/currentWeatherFragment"
-        android:name="com.serg.simplewidgetforecast.CurrentWeatherFragment"
+        android:name="com.serg.simplewidgetforecast.ui.current.CurrentWeatherFragment"
         android:label="current_weather_fragment"
         tools:layout="@layout/current_weather_fragment" />
     <fragment

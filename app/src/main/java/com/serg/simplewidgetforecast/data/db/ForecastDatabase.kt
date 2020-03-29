@@ -1,4 +1,4 @@
-package com.serg.simplewidgetforecast.data.DB
+package com.serg.simplewidgetforecast.data.db
 
 import android.content.Context
 import androidx.room.Database
@@ -7,10 +7,11 @@ import androidx.room.RoomDatabase
 
 
 @Database(
-    entities = [CurrentWeatherResponse::class],
+    entities = [CurrentWeatherEntry::class],
     version = 1
 )
 abstract class ForecastDatabase : RoomDatabase() {
+
     abstract fun currentWeatherDao(): CurrentWeatherDao
 
     companion object {
@@ -19,7 +20,7 @@ abstract class ForecastDatabase : RoomDatabase() {
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            instance ?: buildDataBase(context).also { instance=it }
+            instance ?: buildDataBase(context).also { instance = it }
         }
 
         private fun buildDataBase(context: Context) =

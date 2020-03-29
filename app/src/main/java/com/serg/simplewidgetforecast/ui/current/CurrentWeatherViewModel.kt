@@ -1,15 +1,19 @@
-package com.serg.simplewidgetforecast
+package com.serg.simplewidgetforecast.ui.current
 
 import androidx.lifecycle.ViewModel
 import com.serg.simplewidgetforecast.data.repository.ForecastRepository
 import com.serg.simplewidgetforecast.internal.UnitSystem
 import com.serg.simplewidgetforecast.internal.lazyDeferred
+import kotlinx.coroutines.*
 
 class CurrentWeatherViewModel(
     private val forecastRepository: ForecastRepository
 ) : ViewModel() {
     private val unitSystem = UnitSystem.METRIC
+    private val isMetric: Boolean
+        get() = (unitSystem==UnitSystem.METRIC)
+
     val weather by lazyDeferred {
-        forecastRepository.getCurrentWeather()
+        forecastRepository.getCurrentWeather(isMetric)
     }
 }

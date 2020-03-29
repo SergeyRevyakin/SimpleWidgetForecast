@@ -2,7 +2,6 @@ package com.serg.simplewidgetforecast.ui.current
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.serg.simplewidgetforecast.CurrentWeatherViewModel
 import com.serg.simplewidgetforecast.data.repository.ForecastRepository
 
 class CurrentWeatherViewModelFactory(
