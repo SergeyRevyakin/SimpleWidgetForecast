@@ -48,7 +48,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
 //            testTextView.text = it.name
 //        })
 //
-//        GlobalScope.launch(Dispatchers.CurrentWeatherEntry) {
+//        GlobalScope.launch(Dispatchers.main) {
 //            weatherNetworkDataSource.fetchCurrentWeather(10.0, 20.0)
 //        }
     }
@@ -57,7 +57,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
         val currentWeather = viewModel.weather.await()
         currentWeather.observe(viewLifecycleOwner, Observer {
             //if (it == null) return@Observer
-            testTextView.text = it?.feelsLike.toString().plus("!!!")
+            testTextView.text = it?.main?.feelsLike.toString().plus("!!!")
         })
     }
 

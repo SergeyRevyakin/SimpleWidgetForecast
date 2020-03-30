@@ -9,11 +9,11 @@ import kotlinx.coroutines.*
 class CurrentWeatherViewModel(
     private val forecastRepository: ForecastRepository
 ) : ViewModel() {
-    private val unitSystem = UnitSystem.METRIC
-    private val isMetric: Boolean
-        get() = (unitSystem==UnitSystem.METRIC)
+//    private val unitSystem = UnitSystem.METRIC
+//    private val isMetric: Boolean
+//        get() = (unitSystem==UnitSystem.METRIC)
 
     val weather by lazyDeferred {
-        forecastRepository.getCurrentWeather(isMetric)
+        forecastRepository.getCurrentWeather()
     }
 }

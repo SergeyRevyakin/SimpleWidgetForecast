@@ -1,14 +1,11 @@
 package com.serg.simplewidgetforecast.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherDao
-import com.serg.simplewidgetforecast.data.db.unitlocalized.UnitSpecificCurrentWeatherEntry
 import com.serg.simplewidgetforecast.data.network.WeatherNetworkDataSource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import org.threeten.bp.ZonedDateTime
 
 class ForecastRepositoryImpl(
@@ -16,23 +13,27 @@ class ForecastRepositoryImpl(
     private val weatherNetworkDataSource: WeatherNetworkDataSource
 ) : ForecastRepository {
     init {
-        weatherNetworkDataSource.downloadedCurrentWeather.observeForever { newCurrentWeather ->
-            persistFetchedCurrentWeather(newCurrentWeather)
+        weatherNetworkDataSource.downloadedCurrentWeather.observeForever {
+            persistFetchedCurrentWeather(it)
+            Log.e("UPSERTED","${it.main.feelsLike}")
         }
     }
 
-    override suspend fun getCurrentWeather(isMetric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry> {
+    override suspend fun getCurrentWeather(): LiveData<out CurrentWeatherResponse> {
         initWeatherData()
         return withContext(Dispatchers.IO) {
-            return@withContext if (isMetric) currentWeatherDao.getWeatherMetric()
-            else currentWeatherDao.getWeatherImperial()
+            Log.e("DAO","${currentWeatherDao.getWeather().value?.main?.feelsLike}")
+            return@withContext currentWeatherDao.getWeather()
         }
     }
 
     private fun persistFetchedCurrentWeather(fetchedWeather: CurrentWeatherResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentWeatherDao.upsert(fetchedWeather.currentWeatherEntry)
+            currentWeatherDao.upsert(fetchedWeather)
+            Log.e("UPSERT","${fetchedWeather.main.feelsLike}")
+
         }
+
     }
 
     private suspend fun initWeatherData() {
