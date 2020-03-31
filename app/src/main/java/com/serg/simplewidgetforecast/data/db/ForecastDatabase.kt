@@ -4,12 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.serg.simplewidgetforecast.internal.WeatherConverter
 
 
 @Database(
     entities = [CurrentWeatherResponse::class],
     version = 1
 )
+@TypeConverters(
+    value = [(WeatherConverter::class)]
+)
+
 abstract class ForecastDatabase : RoomDatabase() {
 
     abstract fun currentWeatherDao(): CurrentWeatherDao

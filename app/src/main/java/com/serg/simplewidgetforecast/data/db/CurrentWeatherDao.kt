@@ -5,8 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.serg.simplewidgetforecast.data.db.CURRENT_WEATHER_ID
-
 
 
 @Dao

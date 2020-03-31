@@ -22,7 +22,6 @@ class ConnectivityInterceptorImpl(context: Context) : ConnectivityInterceptor {
         val connectivityManager =
             appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork
-        val networkInfo = connectivityManager.activeNetworkInfo //??
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
 
         if (networkCapabilities == null) {

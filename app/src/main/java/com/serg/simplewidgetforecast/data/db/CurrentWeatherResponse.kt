@@ -1,7 +1,7 @@
 package com.serg.simplewidgetforecast.data.db
 
 import androidx.room.*
-import com.google.gson.annotations.SerializedName
+import com.serg.simplewidgetforecast.internal.WeatherConverter
 
 const val CURRENT_WEATHER_ID = 0
 
@@ -18,18 +18,18 @@ data class CurrentWeatherResponse(
     @Embedded(prefix = "main_")
     val main: Main,
     val name: String,
-//    @Embedded(prefix = "rain_")
-//    val rain: Rain?,
-//    @Embedded(prefix = "snow_")
-//    val snow: Snow?,
+    @Embedded(prefix = "rain_")
+    val rain: Rain?,
+    @Embedded(prefix = "snow_")
+    val snow: Snow?,
     @Embedded(prefix = "sys_")
     val sys: Sys,
     val timezone: Int,
     val visibility: Int,
-//    @TypeConverters(Converters::class)
+    @TypeConverters(WeatherConverter::class)
 //    @Embedded(prefix = "weather_")
 //    @Ignore
-//    val weather: List<Weather>,
+    val weather: List<Weather>,
     @Embedded(prefix = "wind_")
     val wind: Wind
 ) {

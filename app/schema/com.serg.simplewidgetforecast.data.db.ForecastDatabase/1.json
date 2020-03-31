@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "783cf22b3c3c531ea294b2c1d8e35ea4",
+    "identityHash": "50c09f77754f37de71ebca706959997b",
     "entities": [
       {
         "tableName": "current_weather",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `base` TEXT NOT NULL, `cod` INTEGER NOT NULL, `dt` INTEGER NOT NULL, `name` TEXT NOT NULL, `timezone` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `clouds_all` INTEGER NOT NULL, `coord_lat` REAL NOT NULL, `coord_lon` REAL NOT NULL, `main_feelsLike` REAL NOT NULL, `main_humidity` INTEGER NOT NULL, `main_pressure` INTEGER NOT NULL, `main_temp` REAL NOT NULL, `main_tempMax` REAL NOT NULL, `main_tempMin` REAL NOT NULL, `sys_country` TEXT NOT NULL, `sys_id` INTEGER NOT NULL, `sys_message` REAL NOT NULL, `sys_sunrise` INTEGER NOT NULL, `sys_sunset` INTEGER NOT NULL, `sys_type` INTEGER NOT NULL, `wind_deg` INTEGER NOT NULL, `wind_speed` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `base` TEXT NOT NULL, `cod` INTEGER NOT NULL, `dt` INTEGER NOT NULL, `name` TEXT NOT NULL, `timezone` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `weather` TEXT NOT NULL, `clouds_all` INTEGER NOT NULL, `coord_lat` REAL NOT NULL, `coord_lon` REAL NOT NULL, `main_feelsLike` REAL NOT NULL, `main_humidity` INTEGER NOT NULL, `main_pressure` INTEGER NOT NULL, `main_temp` REAL NOT NULL, `main_tempMax` REAL NOT NULL, `main_tempMin` REAL NOT NULL, `rain_h1` REAL, `rain_h3` REAL, `snow_h1` REAL, `snow_h3` REAL, `sys_country` TEXT NOT NULL, `sys_id` INTEGER NOT NULL, `sys_message` REAL NOT NULL, `sys_sunrise` INTEGER NOT NULL, `sys_sunset` INTEGER NOT NULL, `sys_type` INTEGER NOT NULL, `wind_deg` INTEGER NOT NULL, `wind_speed` REAL NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -48,6 +48,12 @@
             "fieldPath": "visibility",
             "columnName": "visibility",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weather",
+            "columnName": "weather",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -103,6 +109,30 @@
             "columnName": "main_tempMin",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "rain.h1",
+            "columnName": "rain_h1",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rain.h3",
+            "columnName": "rain_h3",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "snow.h1",
+            "columnName": "snow_h1",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "snow.h3",
+            "columnName": "snow_h3",
+            "affinity": "REAL",
+            "notNull": false
           },
           {
             "fieldPath": "sys.country",
@@ -166,7 +196,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '783cf22b3c3c531ea294b2c1d8e35ea4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '50c09f77754f37de71ebca706959997b')"
     ]
   }
 }

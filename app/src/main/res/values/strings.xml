@@ -4,4 +4,14 @@
     <string name="today">Today</string>
     <string name="week">Week</string>
     <string name="settings">Settings</string>
+    <string name="loading">Loading</string>
+    <string name="weather_in">Weather in:</string>
+    <string name="weathericon">WeatherIcon</string>
+    <string name="textview">TextView</string>
+    <string name="temperature">Temperature</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="feels_like">Feels like</string>
+    <string name="wind_direction">Wind direction</string>
 </resources>

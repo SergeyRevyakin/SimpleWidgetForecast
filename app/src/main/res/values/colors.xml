@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#607D8B</color>
-    <color name="colorPrimaryLight">#CFD8DC</color>
-    <color name="colorPrimaryDark">#455A64</color>
-    <color name="colorAccent">#FF9800</color>
-    <color name="colorIcon">#FF9800</color>
-    <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#757575</color>
-    <color name="colorDivider">#757575</color>
-    <color name="White">#FFFFFF</color>
+    <!--    <color name="colorPrimary">#607D8B</color>-->
+    <!--    <color name="colorPrimaryLight">#CFD8DC</color>-->
+    <!--    <color name="colorPrimaryDark">#455A64</color>-->
+    <!--    <color name="colorAccent">#FF9800</color>-->
+    <!--    <color name="colorIcon">#FF9800</color>-->
+    <!--    <color name="colorPrimaryText">#212121</color>-->
+    <!--    <color name="colorSecondaryText">#757575</color>-->
+    <!--    <color name="colorDivider">#757575</color>-->
+    <!--    <color name="White">#FFFFFF</color>-->
+    <color name="primaryColor">#546e7a</color>
+    <color name="primaryLightColor">#819ca9</color>
+    <color name="primaryDarkColor">#29434e</color>
+    <color name="secondaryColor">#ff9100</color>
+    <color name="secondaryLightColor">#ffc246</color>
+    <color name="secondaryDarkColor">#c56200</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="backgroundColor">#e0e0e0</color>
+
+    <color name="MARK">#F44336</color>
+
+    <color name="plusTemperatureColor">#ffff8d</color>
+    <color name="minusTemperatureColor">#80d8ff</color>
 </resources>
