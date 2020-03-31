@@ -12,12 +12,12 @@
     <color name="primaryColor">#546e7a</color>
     <color name="primaryLightColor">#819ca9</color>
     <color name="primaryDarkColor">#29434e</color>
-    <color name="secondaryColor">#ff9100</color>
-    <color name="secondaryLightColor">#ffc246</color>
+    <color name="secondaryColor">#f57c00</color>
+    <color name="secondaryLightColor">#c56200</color> <!--#ffc246-->
     <color name="secondaryDarkColor">#c56200</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
-    <color name="backgroundColor">#e0e0e0</color>
+    <color name="backgroundColor">#fafafa</color> <!--#fff3e0-->
 
     <color name="MARK">#F44336</color>
 
