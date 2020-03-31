@@ -111,7 +111,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
                 .plus(String.format("%.1f", response?.main?.tempMax))
         } else textView_temperature.text = getString(R.string.temperature)
             .plus(" ")
-            .plus(response?.main?.tempMin)
+            .plus(String.format("%.1f", response?.main?.tempMin))
     }
 
     private fun updateWind(response: CurrentWeatherResponse?) {
@@ -145,6 +145,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
 
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle =
             "Updated ${format.format(date)}"
+
     }
 
 }

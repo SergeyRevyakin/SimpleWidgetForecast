@@ -1,9 +1,12 @@
 package com.serg.simplewidgetforecast
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.serg.simplewidgetforecast.data.db.ForecastDatabase
 import com.serg.simplewidgetforecast.data.network.*
+import com.serg.simplewidgetforecast.data.provider.UnitProvider
+import com.serg.simplewidgetforecast.data.provider.UnitProviderImpl
 import com.serg.simplewidgetforecast.data.repository.ForecastRepository
 import com.serg.simplewidgetforecast.data.repository.ForecastRepositoryImpl
 import com.serg.simplewidgetforecast.ui.current.CurrentWeatherViewModelFactory
@@ -43,13 +46,18 @@ class ForecastApplication : Application(), KodeinAware {
             ForecastRepositoryImpl(instance(), instance())
         }
 
+        bind<UnitProvider>() with singleton {
+            UnitProviderImpl(instance())
+        }
+
         bind() from provider {
-            CurrentWeatherViewModelFactory(instance())
+            CurrentWeatherViewModelFactory(instance(), instance())
         }
     }
 
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
     }
 }

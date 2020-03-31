@@ -23,6 +23,11 @@
     <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="android:textColorPrimary">@color/secondaryColor</item>
         <item name="android:textColorSecondary">@color/backgroundColor</item>
+        <item name="subtitleTextAppearance">@style/AppSubtitleTextAppearance</item>
+    </style>
+
+    <style name="AppSubtitleTextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

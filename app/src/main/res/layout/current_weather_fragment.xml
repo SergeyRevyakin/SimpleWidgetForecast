@@ -93,6 +93,7 @@
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         android:textColor="@color/plusTemperatureColor"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView_humidity"
         app:layout_constraintEnd_toEndOf="@+id/textView_descr_feels_like"
