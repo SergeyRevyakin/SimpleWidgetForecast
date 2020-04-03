@@ -5,10 +5,7 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.serg.simplewidgetforecast.internal.UnitSystem
 
-class UnitProviderImpl(context: Context) : UnitProvider {
-    private val appContext = context.applicationContext
-    private val preferences: SharedPreferences
-        get() = PreferenceManager.getDefaultSharedPreferences(appContext)
+class UnitProviderImpl(context: Context) : PreferencesProvider(context), UnitProvider {
 
     override fun getUnitSystem(): UnitSystem {
         val selectedName = preferences.getString("UNIT_SYSTEM", UnitSystem.METRIC.name)

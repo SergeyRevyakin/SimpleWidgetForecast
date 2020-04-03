@@ -5,17 +5,20 @@ import androidx.lifecycle.LiveData
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherDao
 import com.serg.simplewidgetforecast.data.network.WeatherNetworkDataSource
+import com.serg.simplewidgetforecast.data.provider.LocationProvider
 import kotlinx.coroutines.*
-import org.threeten.bp.ZonedDateTime
+import okhttp3.internal.wait
+import org.threeten.bp.Instant
 
 class ForecastRepositoryImpl(
     private val currentWeatherDao: CurrentWeatherDao,
-    private val weatherNetworkDataSource: WeatherNetworkDataSource
+    private val weatherNetworkDataSource: WeatherNetworkDataSource,
+    private val locationProvider: LocationProvider
 ) : ForecastRepository {
     init {
         weatherNetworkDataSource.downloadedCurrentWeather.observeForever {
             persistFetchedCurrentWeather(it)
-            Log.e("UPSERTED","${it.main.feelsLike}")
+            //Log.e("UPSERTED","${it.main.feelsLike}")
         }
     }
 
@@ -37,9 +40,14 @@ class ForecastRepositoryImpl(
     }
 
     private suspend fun initWeatherData() {
-        if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1))){
+        val response = currentWeatherDao.getWeather().value
+        if (response==null){//||locationProvider.hasLocationChanged(response)){
             fetchCurrentWeather()
+            return
         }
+//        if (response==null||isFetchCurrentNeeded(Instant.ofEpochSecond(response))){
+//            fetchCurrentWeather()
+//        }
     }
 
     private suspend fun fetchCurrentWeather() {
@@ -47,8 +55,8 @@ class ForecastRepositoryImpl(
 //        Locale.getDefault().language
     }
 
-    private fun isFetchCurrentNeeded(lastFetchTime: ZonedDateTime): Boolean {
-        val thirtyMinutesAgo = ZonedDateTime.now().minusMinutes(30)
+    private fun isFetchCurrentNeeded(lastFetchTime: Instant): Boolean {
+        val thirtyMinutesAgo = Instant.now().minusSeconds(180)
         return lastFetchTime.isBefore(thirtyMinutesAgo)
     }
 

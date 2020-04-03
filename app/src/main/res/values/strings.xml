@@ -14,4 +14,5 @@
     <string name="humidity">Humidity</string>
     <string name="feels_like">Feels like</string>
     <string name="wind_direction">Wind direction</string>
+    <string name="no_location_access_granted">Please set location manually in settings</string>
 </resources>

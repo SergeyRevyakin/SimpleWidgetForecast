@@ -2,6 +2,9 @@ package com.serg.simplewidgetforecast.data.db
 
 import androidx.room.*
 import com.serg.simplewidgetforecast.internal.WeatherConverter
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 
 const val CURRENT_WEATHER_ID = 0
 
@@ -13,7 +16,7 @@ data class CurrentWeatherResponse(
     val cod: Int,
     @Embedded(prefix = "coord_")
     val coord: Coord,
-    val dt: Int,
+    val dt: Long,
     //val iD: Int,
     @Embedded(prefix = "main_")
     val main: Main,
@@ -35,4 +38,12 @@ data class CurrentWeatherResponse(
 ) {
     @PrimaryKey(autoGenerate = false)
     var id: Int = CURRENT_WEATHER_ID
+//    val zonedDateTime: ZonedDateTime
+//        get() {
+//            val instant = Instant.ofEpochSecond(dt)
+//            val zoneId = ZoneId.of(timezone.toString())
+//            return ZonedDateTime.ofInstant(instant, zoneId)
+//        }
 }
+
+

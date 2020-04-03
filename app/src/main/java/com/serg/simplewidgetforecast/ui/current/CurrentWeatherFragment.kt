@@ -18,6 +18,9 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -141,6 +144,12 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
         val dateI = response.dt.toString().plus("000")
         val date = Date(dateI.toLong())
         val format = SimpleDateFormat("HH:mm dd MMMM", Locale.getDefault())
+
+
+//        val instant = Instant.ofEpochSecond(response.dt)
+//        val zoneId = ZoneId.of(response.timezone.toString())
+//        val zonedDateTime = ZonedDateTime.ofInstant(instant, zoneId)
+
 
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle =
             "Updated ${format.format(date)}"

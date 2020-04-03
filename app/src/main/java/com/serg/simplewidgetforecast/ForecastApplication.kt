@@ -1,10 +1,14 @@
 package com.serg.simplewidgetforecast
 
 import android.app.Application
+import android.content.Context
 import androidx.preference.PreferenceManager
+import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.serg.simplewidgetforecast.data.db.ForecastDatabase
 import com.serg.simplewidgetforecast.data.network.*
+import com.serg.simplewidgetforecast.data.provider.LocationProvider
+import com.serg.simplewidgetforecast.data.provider.LocationProviderImpl
 import com.serg.simplewidgetforecast.data.provider.UnitProvider
 import com.serg.simplewidgetforecast.data.provider.UnitProviderImpl
 import com.serg.simplewidgetforecast.data.repository.ForecastRepository
@@ -42,8 +46,14 @@ class ForecastApplication : Application(), KodeinAware {
             WeatherNetworkDataSourceImpl(instance())
         }
 
+        bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
+
+        bind<LocationProvider>() with singleton {
+            LocationProviderImpl(instance(), instance())
+        }
+
         bind<ForecastRepository>() with singleton {
-            ForecastRepositoryImpl(instance(), instance())
+            ForecastRepositoryImpl(instance(), instance(), instance())
         }
 
         bind<UnitProvider>() with singleton {

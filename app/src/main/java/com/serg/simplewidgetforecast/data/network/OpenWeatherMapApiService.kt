@@ -23,8 +23,9 @@ interface OpenWeatherMapApiService {
 //    )
     @GET("weather")
     fun getCurrentWeatherAsync(
-        @Query("lat") latitude: Double,
-        @Query("lon") longitude: Double,
+//        @Query("lat") latitude: Double,
+//        @Query("lon") longitude: Double,
+        @Query("") request: String,
         @Query("APPID") appid: String = API_KEY,
         @Query("lang") language: String = "ru",
         @Query("units") units: String = "metric"
