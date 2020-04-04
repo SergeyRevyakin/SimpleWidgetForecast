@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "50c09f77754f37de71ebca706959997b",
+    "identityHash": "001ec1775ec7bbb627e25793ea066ddd",
     "entities": [
       {
         "tableName": "current_weather",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `base` TEXT NOT NULL, `cod` INTEGER NOT NULL, `dt` INTEGER NOT NULL, `name` TEXT NOT NULL, `timezone` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `weather` TEXT NOT NULL, `clouds_all` INTEGER NOT NULL, `coord_lat` REAL NOT NULL, `coord_lon` REAL NOT NULL, `main_feelsLike` REAL NOT NULL, `main_humidity` INTEGER NOT NULL, `main_pressure` INTEGER NOT NULL, `main_temp` REAL NOT NULL, `main_tempMax` REAL NOT NULL, `main_tempMin` REAL NOT NULL, `rain_h1` REAL, `rain_h3` REAL, `snow_h1` REAL, `snow_h3` REAL, `sys_country` TEXT NOT NULL, `sys_id` INTEGER NOT NULL, `sys_message` REAL NOT NULL, `sys_sunrise` INTEGER NOT NULL, `sys_sunset` INTEGER NOT NULL, `sys_type` INTEGER NOT NULL, `wind_deg` INTEGER NOT NULL, `wind_speed` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`primaryKey` INTEGER NOT NULL, `base` TEXT NOT NULL, `cod` INTEGER NOT NULL, `dt` INTEGER NOT NULL, `name` TEXT NOT NULL, `timezone` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `weather` TEXT NOT NULL, `clouds_all` INTEGER NOT NULL, `coord_lat` REAL NOT NULL, `coord_lon` REAL NOT NULL, `main_feelsLike` REAL NOT NULL, `main_humidity` INTEGER NOT NULL, `main_pressure` INTEGER NOT NULL, `main_temp` REAL NOT NULL, `main_tempMax` REAL NOT NULL, `main_tempMin` REAL NOT NULL, `rain_h1` REAL, `rain_h3` REAL, `snow_h1` REAL, `snow_h3` REAL, `sys_country` TEXT NOT NULL, `sys_id` INTEGER NOT NULL, `sys_message` REAL NOT NULL, `sys_sunrise` INTEGER NOT NULL, `sys_sunset` INTEGER NOT NULL, `sys_type` INTEGER NOT NULL, `wind_deg` INTEGER NOT NULL, `wind_speed` REAL NOT NULL, PRIMARY KEY(`primaryKey`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "primaryKey",
+            "columnName": "primaryKey",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -185,7 +185,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "primaryKey"
           ],
           "autoGenerate": false
         },
@@ -196,7 +196,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '50c09f77754f37de71ebca706959997b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '001ec1775ec7bbb627e25793ea066ddd')"
     ]
   }
 }

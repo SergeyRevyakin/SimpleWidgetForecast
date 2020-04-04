@@ -73,6 +73,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
         currentWeather.observe(viewLifecycleOwner, Observer {
 
             updateLocationAndIcon(it)
+            updateTemp(it)
             updateWind(it)
             updateHumidity(it)
             updatePressure(it)
@@ -90,8 +91,6 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
         textView_location.text = response?.name
         textView_descriprion.text = response?.weather?.get(0)?.description
 
-        updateTemp(response)
-
         GlideApp.with(this@CurrentWeatherFragment)
             .load("https://openweathermap.org/img/wn/${response?.weather?.get(0)?.icon}@2x.png")
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -108,7 +107,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
         if (response?.main?.tempMin != response?.main?.tempMax) {
             textView_temperature.text = getString(R.string.temperature)
                 .plus(" ")
-                .plus(String.format("%.1f", response?.main?.tempMin.toString()))
+                .plus(String.format("%.1f", response?.main?.tempMin))
                 .plus(" .. ")
                 .plus(String.format("%.1f", response?.main?.tempMax))
         } else textView_temperature.text = getString(R.string.temperature)

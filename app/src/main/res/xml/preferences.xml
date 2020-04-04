@@ -8,7 +8,7 @@
             android:summary="Allow the app get your location"
             android:title="Use device location" />
         <EditTextPreference
-            android:defaultValue="Saint-Petersburg"
+            android:defaultValue="London"
             android:dependency="USE_DEVICE_LOCATION"
             android:key="CUSTOM_LOCATION"
             android:summary="The location for which weather is displayed"

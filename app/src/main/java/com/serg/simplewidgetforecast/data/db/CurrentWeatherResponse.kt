@@ -37,7 +37,7 @@ data class CurrentWeatherResponse(
     val wind: Wind
 ) {
     @PrimaryKey(autoGenerate = false)
-    var id: Int = CURRENT_WEATHER_ID
+    var primaryKey: Int = CURRENT_WEATHER_ID
 //    val zonedDateTime: ZonedDateTime
 //        get() {
 //            val instant = Instant.ofEpochSecond(dt)

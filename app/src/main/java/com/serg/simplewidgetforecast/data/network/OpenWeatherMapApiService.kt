@@ -22,10 +22,17 @@ interface OpenWeatherMapApiService {
 //        @Query("units") units: String = "metric"
 //    )
     @GET("weather")
-    fun getCurrentWeatherAsync(
-//        @Query("lat") latitude: Double,
-//        @Query("lon") longitude: Double,
-        @Query("") request: String,
+    fun getCurrentWeatherByCityAsync(
+        @Query("q") city: String = "Moscow",
+        @Query("APPID") appid: String = API_KEY,
+        @Query("lang") language: String = "ru",
+        @Query("units") units: String = "metric"
+    ): Deferred<CurrentWeatherResponse>
+
+    @GET("weather")
+    fun getCurrentWeatherByCoordAsync(
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
         @Query("APPID") appid: String = API_KEY,
         @Query("lang") language: String = "ru",
         @Query("units") units: String = "metric"

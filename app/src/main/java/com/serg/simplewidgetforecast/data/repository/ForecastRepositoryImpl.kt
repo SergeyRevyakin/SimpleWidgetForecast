@@ -2,6 +2,7 @@ package com.serg.simplewidgetforecast.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.serg.simplewidgetforecast.data.db.Coord
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherDao
 import com.serg.simplewidgetforecast.data.network.WeatherNetworkDataSource
@@ -51,8 +52,18 @@ class ForecastRepositoryImpl(
     }
 
     private suspend fun fetchCurrentWeather() {
-        weatherNetworkDataSource.fetchCurrentWeather(50.0,60.0)
+        when (locationProvider.getPreferredLocationString()) {
+            is String -> {
+                if (locationProvider.getPreferredLocationString().equals(null)) {
+                    weatherNetworkDataSource.fetchCurrentWeather("Malinovka")
+                }
+                weatherNetworkDataSource.fetchCurrentWeather(locationProvider.getPreferredLocationString() as String)
+            }
+            is Coord -> weatherNetworkDataSource
+                .fetchCurrentWeather(locationProvider.getPreferredLocationString() as Coord)
+            else -> Log.e("LocationProvider", "Incorrect type of locationProvider")
 //        Locale.getDefault().language
+        }
     }
 
     private fun isFetchCurrentNeeded(lastFetchTime: Instant): Boolean {

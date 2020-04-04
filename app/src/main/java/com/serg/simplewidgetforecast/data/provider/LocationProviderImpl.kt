@@ -1,12 +1,12 @@
 package com.serg.simplewidgetforecast.data.provider
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.serg.simplewidgetforecast.data.db.Coord
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.internal.LocationPermissionNonGrantedException
 import com.serg.simplewidgetforecast.internal.asDeferred
@@ -31,17 +31,19 @@ class LocationProviderImpl(
         return deviceLocationChanged || hasCustomLocationChanged(lastLocation)
     }
 
-    override suspend fun getPreferredLocationString(): String {
+    override suspend fun getPreferredLocationString(): Any {
+
         if (isUsingDeviceLocation()){
             try {
                 val deviceLocation = getLastDeviceLocation().await()
-                    ?: return "q=${getCustomLocationName()}"
-                return "lat=${deviceLocation.latitude}&lon=${deviceLocation.longitude}"
+                    ?: return "${getCustomLocationName()}"
+                return Coord(deviceLocation.latitude, deviceLocation.longitude)
+                //"lat=${deviceLocation.latitude}&lon=${deviceLocation.longitude}"
             } catch (e:LocationPermissionNonGrantedException) {
-                return "q=${getCustomLocationName()}"
+                return "${getCustomLocationName()}"
             }
         }
-        else return "q=${getCustomLocationName()}"
+        else return "${getCustomLocationName()}"
     }
 
     private suspend fun hasCustomLocationChanged(lastLocation: CurrentWeatherResponse): Boolean {
