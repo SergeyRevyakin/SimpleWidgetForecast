@@ -52,20 +52,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
         updateToolbar()
         bindUI()
 
-//        testTextView.textSize = 30f
-//        testTextView.text = "TEST"
 
-//        val apiService =
-//            OpenWeatherMapApiService(ConnectivityInterceptorImpl(this.context!!))
-//        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
-//
-//        weatherNetworkDataSource.downloadedCurrentWeather.observe(viewLifecycleOwner, Observer {
-//            testTextView.text = it.name
-//        })
-//
-//        GlobalScope.launch(Dispatchers.main) {
-//            weatherNetworkDataSource.fetchCurrentWeather(10.0, 20.0)
-//        }
     }
 
     private fun bindUI() = launch {

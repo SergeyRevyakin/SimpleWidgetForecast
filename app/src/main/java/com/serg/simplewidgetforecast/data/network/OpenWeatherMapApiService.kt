@@ -1,8 +1,8 @@
 package com.serg.simplewidgetforecast.data.network
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
-import kotlinx.coroutines.Deferred
+
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -22,21 +22,21 @@ interface OpenWeatherMapApiService {
 //        @Query("units") units: String = "metric"
 //    )
     @GET("weather")
-    fun getCurrentWeatherByCityAsync(
+    suspend fun getCurrentWeatherByCityAsync(
         @Query("q") city: String = "Moscow",
-        @Query("APPID") appid: String = API_KEY,
+        @Query("APPID") appId: String = API_KEY,
         @Query("lang") language: String = "ru",
         @Query("units") units: String = "metric"
-    ): Deferred<CurrentWeatherResponse>
+    ): CurrentWeatherResponse
 
     @GET("weather")
-    fun getCurrentWeatherByCoordAsync(
+    suspend fun getCurrentWeatherByCoordAsync(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-        @Query("APPID") appid: String = API_KEY,
+        @Query("APPID") appId: String = API_KEY,
         @Query("lang") language: String = "ru",
         @Query("units") units: String = "metric"
-    ): Deferred<CurrentWeatherResponse>
+    ): CurrentWeatherResponse
 
 //    @GET("forecast")
 //    fun getWeatherForecast(
@@ -76,7 +76,7 @@ interface OpenWeatherMapApiService {
             return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                //.addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(OpenWeatherMapApiService::class.java)

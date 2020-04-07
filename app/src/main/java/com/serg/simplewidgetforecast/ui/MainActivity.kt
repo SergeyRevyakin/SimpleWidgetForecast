@@ -15,7 +15,6 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.serg.simplewidgetforecast.R
 import kotlinx.android.synthetic.main.activity_main.*
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
@@ -96,4 +95,5 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
+
 }

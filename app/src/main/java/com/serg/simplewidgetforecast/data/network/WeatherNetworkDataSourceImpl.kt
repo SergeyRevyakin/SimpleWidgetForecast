@@ -1,14 +1,22 @@
 package com.serg.simplewidgetforecast.data.network
 
+import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.serg.simplewidgetforecast.R
 import com.serg.simplewidgetforecast.data.db.Coord
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.internal.NoConnectivityException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+import retrofit2.HttpException
 
 class WeatherNetworkDataSourceImpl(
-    private val openWeatherMapApiService: OpenWeatherMapApiService
+    private val openWeatherMapApiService: OpenWeatherMapApiService,
+    val context: Context
 ) : WeatherNetworkDataSource {
     private val _downloadedCurrentWeather = MutableLiveData<CurrentWeatherResponse>()
 
@@ -19,12 +27,19 @@ class WeatherNetworkDataSourceImpl(
         try {
             val fetchedCurrentWeather = openWeatherMapApiService
                 .getCurrentWeatherByCoordAsync(coord.lat, coord.lon)
-                .await()
 
             _downloadedCurrentWeather.postValue(fetchedCurrentWeather)
-        }
-        catch (e:NoConnectivityException){
+        } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection. ", e)
+            GlobalScope.launch(Dispatchers.Main) {
+                Toast.makeText(
+                    context,
+                    R.string.no_internet_connection,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        } catch (ex: HttpException) {
+            Log.e("Connectivity", "No internet connection. ", ex)
         }
     }
 
@@ -32,12 +47,28 @@ class WeatherNetworkDataSourceImpl(
         try {
             val fetchedCurrentWeather = openWeatherMapApiService
                 .getCurrentWeatherByCityAsync(city)
-                .await()
 
             _downloadedCurrentWeather.postValue(fetchedCurrentWeather)
-        }
-        catch (e:NoConnectivityException){
-            Log.e("Connectivity", "No internet connection. ", e)
+        } catch (e: NoConnectivityException) {
+            //Log.e("Connectivity", "No internet connection. ", e)
+            GlobalScope.launch(Dispatchers.Main) {
+                Toast.makeText(
+                    context,
+                    R.string.no_internet_connection,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        } catch (ex: HttpException) {
+            //Log.e("Connectivity", "No internet connection. ", ex)
+            //Dispatchers.IO.run {  }
+            GlobalScope.launch(Dispatchers.Main) {
+                Toast.makeText(
+                    context,
+                    R.string.custom_location_api_error,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
         }
     }
 }

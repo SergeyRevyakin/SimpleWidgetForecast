@@ -2,6 +2,7 @@ package com.serg.simplewidgetforecast
 
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -13,6 +14,8 @@ import com.serg.simplewidgetforecast.data.provider.UnitProvider
 import com.serg.simplewidgetforecast.data.provider.UnitProviderImpl
 import com.serg.simplewidgetforecast.data.repository.ForecastRepository
 import com.serg.simplewidgetforecast.data.repository.ForecastRepositoryImpl
+import com.serg.simplewidgetforecast.ui.MainActivity
+import com.serg.simplewidgetforecast.ui.current.CurrentWeatherFragment
 import com.serg.simplewidgetforecast.ui.current.CurrentWeatherViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -42,8 +45,9 @@ class ForecastApplication : Application(), KodeinAware {
             OpenWeatherMapApiService(instance())
         }
 
+        //Added 2 instances
         bind<WeatherNetworkDataSource>() with singleton {
-            WeatherNetworkDataSourceImpl(instance())
+            WeatherNetworkDataSourceImpl(instance(), instance())
         }
 
         bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
@@ -63,6 +67,13 @@ class ForecastApplication : Application(), KodeinAware {
         bind() from provider {
             CurrentWeatherViewModelFactory(instance(), instance())
         }
+
+        //My
+//        bind<AppCompatActivity>() with singleton {
+//            MainActivity()
+//        }
+
+
     }
 
     override fun onCreate() {

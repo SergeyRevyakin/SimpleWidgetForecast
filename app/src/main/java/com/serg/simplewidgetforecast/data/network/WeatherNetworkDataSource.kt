@@ -1,6 +1,5 @@
 package com.serg.simplewidgetforecast.data.network
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.serg.simplewidgetforecast.data.db.Coord
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse

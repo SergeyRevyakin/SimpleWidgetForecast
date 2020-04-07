@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/current_weather_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.current.CurrentWeatherFragment">
@@ -52,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="imageView_condition_icon,textView_location,textView_feelslike,textView_descriprion,textView_temperature,textView_wind,textView_humidity,textView_pressure,textView_descr_feels_like"
+        app:constraint_referenced_ids="imageView_condition_icon,textView_location,textView_feelslike,textView_descriprion,textView_temperature,textView_wind,textView_humidity,textView_pressure,textView_descr_feels_like,textView_wind_dir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
