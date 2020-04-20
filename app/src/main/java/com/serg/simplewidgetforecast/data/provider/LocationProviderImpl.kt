@@ -6,8 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.serg.simplewidgetforecast.data.db.Coord
-import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
+import com.serg.simplewidgetforecast.data.response.Coord
+import com.serg.simplewidgetforecast.data.response.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.internal.LocationPermissionNonGrantedException
 import com.serg.simplewidgetforecast.internal.asDeferred
 import kotlinx.coroutines.Deferred
@@ -37,7 +37,10 @@ class LocationProviderImpl(
             try {
                 val deviceLocation = getLastDeviceLocation().await()
                     ?: return "${getCustomLocationName()}"
-                return Coord(deviceLocation.latitude, deviceLocation.longitude)
+                return Coord(
+                    deviceLocation.latitude,
+                    deviceLocation.longitude
+                )
                 //"lat=${deviceLocation.latitude}&lon=${deviceLocation.longitude}"
             } catch (e:LocationPermissionNonGrantedException) {
                 return "${getCustomLocationName()}"

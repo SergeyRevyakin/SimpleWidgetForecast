@@ -2,9 +2,7 @@ package com.serg.simplewidgetforecast.internal
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.serg.simplewidgetforecast.data.db.Weather
-import java.util.*
+import com.serg.simplewidgetforecast.data.response.Weather
 
 class WeatherConverter {
 

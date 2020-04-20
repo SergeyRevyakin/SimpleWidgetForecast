@@ -1,7 +1,7 @@
 package com.serg.simplewidgetforecast.data.network
 
 
-import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
+import com.serg.simplewidgetforecast.data.response.CurrentWeatherResponse
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

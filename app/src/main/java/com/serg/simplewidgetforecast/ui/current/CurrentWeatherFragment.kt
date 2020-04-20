@@ -5,25 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.serg.simplewidgetforecast.R
-import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
-import com.serg.simplewidgetforecast.internal.GlideApp
+import com.serg.simplewidgetforecast.data.response.CurrentWeatherResponse
+import com.serg.simplewidgetforecast.internal.mapOfErikIcons
 import com.serg.simplewidgetforecast.internal.showWindDirection
 import com.serg.simplewidgetforecast.ui.base.ScopeFragment
 import kotlinx.android.synthetic.main.current_weather_fragment.*
+import kotlinx.android.synthetic.main.location_today_weather.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import org.threeten.bp.Instant
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
-import kotlin.math.roundToInt
 
 
 class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
@@ -43,7 +42,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        group_main.visibility = View.GONE
+        group_main.visibility = View.INVISIBLE
         group_loading.visibility = View.VISIBLE
 
         viewModel = ViewModelProvider(this, viewModelFactory)  //redone
@@ -51,6 +50,19 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
 
         updateToolbar()
         bindUI()
+
+        //Update UI
+        current_weather_layout.setOnRefreshListener {
+
+            viewModel = ViewModelProvider(this, viewModelFactory)  //redone
+                .get(CurrentWeatherViewModel::class.java)
+
+            bindUI()
+            updateToolbar()
+
+            current_weather_layout.isRefreshing = false
+
+        }
 
 
     }
@@ -78,14 +90,40 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
         textView_location.text = response?.name
         textView_descriprion.text = response?.weather?.get(0)?.description
 
-        GlideApp.with(this@CurrentWeatherFragment)
-            .load("https://openweathermap.org/img/wn/${response?.weather?.get(0)?.icon}@2x.png")
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(imageView_condition_icon)
+//        val link = "R.drawable." + mapOfErikIcons[response?.weather?.get(0)?.icon]
+        //val imageId = resources.getIdentifier(mapOfErikIcons[response?.weather?.get(0)?.icon],"id", )
+        val hz = mapOfErikIcons[response?.weather?.get(0)?.icon]
+
+//        GlideApp.with(this@CurrentWeatherFragment)
+//            //.load("https://openweathermap.org/img/wn/${response?.weather?.get(0)?.icon}@2x.png")
+//            .load(
+//                this.context?.resources?.getIdentifier(
+//                    mapOfErikIcons[response?.weather?.get(0)?.icon], "drawable",
+//                    context?.packageName
+//                )
+//            )
+//            .centerCrop()
+//            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//            .into(imageView_condition_icon)
+//        imageView_condition_icon.setImageDrawable(resources.getDrawable(R.drawable.wi_cloudy, resources.newTheme()))
+//            this.context?.resources?.getIdentifier(
+//                    mapOfErikIcons[response?.weather?.get(0)?.icon], "drawable",
+//                    context?.packageName))
+
+        val weatherIcon =
+            AppCompatResources.getDrawable(
+                context!!, resources.getIdentifier(
+                    mapOfErikIcons[response?.weather?.get(0)?.icon], "drawable",
+                    context?.packageName
+                )
+            )
+
+        DrawableCompat.setTint(weatherIcon!!, resources.getColor(R.color.primaryDarkColor))
+        imageView_condition_icon.setImageDrawable(weatherIcon)
+
     }
 
     private fun updateTemp(response: CurrentWeatherResponse?) { //feelsLike: String, tempMin: String, tempMax: String
-
         textView_feelslike.text = String.format("%.1f", response?.main?.feelsLike)
         if (response != null && response.main.feelsLike > 0)
             textView_feelslike.setTextColor(resources.getColor(R.color.secondaryColor))
@@ -139,6 +177,7 @@ class CurrentWeatherFragment : ScopeFragment(), KodeinAware {
 
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle =
             "Updated ${format.format(date)}"
+                .plus(LocalDateTime.now().second)
 
     }
 

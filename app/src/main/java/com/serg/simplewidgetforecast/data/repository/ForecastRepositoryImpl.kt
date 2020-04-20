@@ -2,13 +2,12 @@ package com.serg.simplewidgetforecast.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.serg.simplewidgetforecast.data.db.Coord
-import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
+import com.serg.simplewidgetforecast.data.response.Coord
+import com.serg.simplewidgetforecast.data.response.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.data.db.CurrentWeatherDao
 import com.serg.simplewidgetforecast.data.network.WeatherNetworkDataSource
 import com.serg.simplewidgetforecast.data.provider.LocationProvider
 import kotlinx.coroutines.*
-import okhttp3.internal.wait
 import org.threeten.bp.Instant
 
 class ForecastRepositoryImpl(

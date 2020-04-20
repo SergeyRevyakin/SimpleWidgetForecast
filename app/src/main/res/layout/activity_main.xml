@@ -4,30 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ToolbarTheme"
-        android:background="@color/backgroundColor"/>
+        android:background="@color/backgroundColor"
+        android:theme="@style/ToolbarTheme" />
 
     <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/nav_host_fragment"
         app:defaultNavHost="true"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/mobile_navigation"
-        />
+        app:navGraph="@navigation/mobile_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottomNav"
         app:menu="@menu/bottom_nav" />
 
 </LinearLayout>

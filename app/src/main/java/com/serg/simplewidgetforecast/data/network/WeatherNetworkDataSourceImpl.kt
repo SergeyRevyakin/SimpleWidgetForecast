@@ -5,8 +5,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.serg.simplewidgetforecast.R
-import com.serg.simplewidgetforecast.data.db.Coord
-import com.serg.simplewidgetforecast.data.db.CurrentWeatherResponse
+import com.serg.simplewidgetforecast.data.response.Coord
+import com.serg.simplewidgetforecast.data.response.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.internal.NoConnectivityException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

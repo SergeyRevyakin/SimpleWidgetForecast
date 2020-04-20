@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.serg.simplewidgetforecast.data.response.CurrentWeatherResponse
 import com.serg.simplewidgetforecast.internal.WeatherConverter
 
 

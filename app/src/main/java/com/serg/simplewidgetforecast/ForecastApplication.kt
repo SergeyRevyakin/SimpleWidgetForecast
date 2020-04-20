@@ -81,4 +81,5 @@ class ForecastApplication : Application(), KodeinAware {
         AndroidThreeTen.init(this)
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
     }
+
 }
